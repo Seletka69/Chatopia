@@ -23,7 +23,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    UsersAdapter usersAdapter;
+    MessageAdapter usersAdapter;
     String yourName;
     DatabaseReference databaseReference;
 
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         String userName = getIntent().getStringExtra("username");
         getSupportActionBar().setTitle(userName);
 
-        usersAdapter = new UsersAdapter(this);
+        usersAdapter = new MessageAdapter(this);
         recyclerView = findViewById(R.id.recycler);
 
         recyclerView.setAdapter(usersAdapter);

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder> {
+public class UsersAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHolder> {
     private Context context;
     private List<UserModel> userModelList;
 
@@ -36,13 +36,13 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder
 
     @NonNull
     @Override
-    public UsersAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MessageAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_row,parent,false);
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UsersAdapter.MyViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull MessageAdapter.MyViewHolder holder, int position)
     {
         UserModel userModel = userModelList.get(position);
         holder.name.setText(userModel.getUserName());
