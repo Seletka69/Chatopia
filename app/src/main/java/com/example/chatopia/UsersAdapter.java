@@ -6,14 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsersAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHolder> {
+public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.MyViewHolder> {
     private Context context;
     private List<UserModel> userModelList;
 
@@ -22,28 +20,25 @@ public class UsersAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHold
         this.userModelList = new ArrayList<>();
     }
 
-    public void add(UserModel userModel)
-    {
+    public void add(UserModel userModel) {
         userModelList.add(userModel);
+        notifyDataSetChanged();
     }
 
-    public void clear()
-    {
+    public void clear() {
         userModelList.clear();
         notifyDataSetChanged();
     }
 
-
     @NonNull
     @Override
-    public MessageAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_row,parent,false);
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_row, parent, false);
         return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MessageAdapter.MyViewHolder holder, int position)
-    {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         UserModel userModel = userModelList.get(position);
         holder.name.setText(userModel.getUserName());
         holder.email.setText(userModel.getUserEmail());
@@ -57,7 +52,6 @@ public class UsersAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHold
                 context.startActivity(intent);
             }
         });
-
     }
 
     @Override
@@ -65,14 +59,13 @@ public class UsersAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHold
         return userModelList.size();
     }
 
-    public List<UserModel> getUserModelList()
-    {
+    public List<UserModel> getUserModelList() {
         return userModelList;
     }
 
-
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView name, email;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.username);

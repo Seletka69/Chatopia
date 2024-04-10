@@ -46,12 +46,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MyViewHo
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         if(viewType==VIEW_TYPE_SENT)
         {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_row,parent,false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_row_sent,parent,false);
             return new MyViewHolder(view);
         }
         else
         {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_row,parent,false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_row_received,parent,false);
             return new MyViewHolder(view);
         }
     }
