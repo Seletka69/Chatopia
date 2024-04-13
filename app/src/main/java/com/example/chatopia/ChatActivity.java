@@ -27,6 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -74,8 +76,16 @@ public class ChatActivity extends AppCompatActivity {
                 for(DataSnapshot dataSnapshot:snapshot.getChildren())
                 {
                     MessageModel messageModel = dataSnapshot.getValue(MessageModel.class);
-                    messages.add(messageModel);
+                    if (messageModel.getTimestamp() != null) {
+                        messages.add(messageModel);
+                    }
                 }
+                Collections.sort(messages, new Comparator<MessageModel>() {
+                    @Override
+                    public int compare(MessageModel m1, MessageModel m2) {
+                        return Long.compare(m1.getTimestamp(), m2.getTimestamp());
+                    }
+                });
                 messageAdapter.clear();
                 for(MessageModel message: messages)
                 {
@@ -83,6 +93,7 @@ public class ChatActivity extends AppCompatActivity {
                 }
                 messageAdapter.notifyDataSetChanged();
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -107,10 +118,9 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void SendMessage(String message) {
-
         String messageId = UUID.randomUUID().toString();
-        MessageModel messageModel = new MessageModel(messageId,FirebaseAuth.getInstance().getUid(),message);
-        messageAdapter.add(messageModel);
+        MessageModel messageModel = new MessageModel(messageId, FirebaseAuth.getInstance().getUid(), message);
+        messageModel.setTimestamp(System.currentTimeMillis());
 
         dbReferenceSender.child(messageId).setValue(messageModel)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
